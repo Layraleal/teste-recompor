@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Recompor</title>
+	<script src="https://kit.fontawesome.com/538f3725d2.js" crossorigin="anonymous"></script>
+    <link rel = "stylesheet" href = "{% static 'css/estilo.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <link type="text/css" rel = "stylesheet" href = "{% static 'css/estiloGraficoIndiv.css' %}">
+    
+</head>
+
+<body>
+    <header>
+        {% include 'navbar.html' %}
+    </header>
+
+    <h1 id="bem-vindo">Olá {{ user.get_username }}!</h1>
+    <h3 id="area">Composteiras Individuais</h3>
+    <div id = "container">
+        <div id = "lado2">
+        </div>
+        
+        <div id = "lado1" >
+            
+            <div class = "swiper mySwiper">
+                
+            <div id="todas-comp" class = "swiper-wrapper" >
+                <!-- Inicia o loop para mostrar todas as composteiras do usuário -->
+                {% for composteira in composteiras %}
+                <div class = "swiper-slide">
+                    
+                    <div class = "comp-dados">
+                        <div>
+                        <section class = 'img-name'>
+                            <img  class = 'foto-comp' src="{% static 'img/icon_colocaimg.png' %}">
+                            <p class="nome-comp">{{ composteira.nome }}</p>
+                        </section>
+    
+                        <section class = dados>
+                                <p>Construída: {{ composteira.data_construcao }}</p>
+                                <p>Tipo: {{ composteira.tipo }}</p>
+    
+                        </section>
+                        </div>
+    
+                        <div id = "status">
+                            <p class = titulo-sombra>Compostagens</p>
+                            <div id="drop-down">
+                
+                                <select id="sub-div1">
+                                    <option value = mes-atual>Mês atual</option>
+                                    <option value = mes-passado>Mês passado</option>
+                                    <option value = mes-retrasado>Mês retrasado</option>
+                                    <option value = escolher-mes>Escolher outro mês</option>
+                                </select>
+                                
+                                <select id="sub-div2">
+                                    <option value = mais-detalhes>Mais detalhes</option>
+                                </select>
+                            </div>
+                            <a>
+                                <!-- Inicia o loop para mostrar todas as compostagens de uma composteira de determinado usuário -->
+                                    {% for compostagem in compostagens %}
+                                     <!-- Só mostra se o fk for igual ao pk -->
+                                        {% if compostagem.fkComposteira.id_composteira == composteira.id_composteira %} 
+                                        <section class = data-compostagem>
+                                            <p>Feita dia: {{ compostagem.data_inicio }}</p>
+                                            <p>Pronta dia: dd/mm/aaaa</p>
+                                        </section>
+                                        <section class = reducao>
+                                            <p>Quantidade: {{ compostagem.peso }}</p>
+                                        </section>
+                                        {% endif %}
+                                    {% endfor %}
+                            </a>
+                            </div>
+                    </div>
+
+                    <div class="nova-comp">
+                    <button id = "adicionar-comp"><a  class = aaa href = "{% url 'composteira:addCompostagem' %}">Adicionar compostagem</a><img id = seta-tutorial src="{% static 'img/seta-tutorial.png' %}"></button>
+                    </div>
+
+                    <div id="grafico">
+                        <H2>Gráfico</H2>
+                        <p>Minha Redução de Gases do Efeito Estufa</p>
+
+                        <div id="selects">
+                            <select>
+                                <option>Este mês</option>
+                                <option>Mês passado</option>
+                                <option>Esse ano</option>
+                            </select>
+                            <select>
+                                <option>Mais detalhes</option>
+                            </select>
+                        </div>
+
+                        <div id="dados-graficos">
+                            <p>Você deixou de emitir: 40kg no ambiente</p>
+                        </div>
+                        
+            
+                    </div> <!--Fecha a div gráfico-->
+                </div>
+                {% endfor %}
+
+                </div>
+        
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+
+        
+        </div> <!--Swiper-->
+        </div> 
+        
+
+        
+    </div>
+    <script src="{% static 'js/navegacao.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="{% static 'js/tamanho2.js' %}"></script>
+    
+    
+    
+
+
+
+</body>

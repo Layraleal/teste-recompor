@@ -1,0 +1,134 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Recompor</title>
+	<script src="https://kit.fontawesome.com/538f3725d2.js" crossorigin="anonymous"></script>
+    <link rel = "stylesheet" href = "{% static 'css/estilo.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <link rel = "stylesheet" href = "{% static 'css/grafico-geral.css' %}">
+    
+</head>
+<!-- Filha da puta, funciona-->
+<body>
+    <header>
+        {% include 'navbar.html' %}
+    </header>
+    <h1 id="bem-vindo">Olá {{ user.get_username}}</h1>
+    <h3 id="area">Todas Composteiras</h3>
+    <div id = "container">
+        
+        <div id = "lado1" >
+            
+            <div class = "swiper mySwiper">
+                <!--<button id="butao_volta"><img id = invert src="imagens/setabonita.png"></button>-->
+                
+                <div id="todas-comp" class = "swiper-wrapper">
+                    {% for composteira in composteiras %}
+                    <div class = "swiper-slide">
+                        
+                        
+                            
+                            <section class = 'img-name'>
+                                <img  class = 'foto-comp' src="{% static 'img/icon_colocaimg.png' %}">
+                                <p class="nome-comp"><a href="{% url 'composteira:graficoIndividual' %}">{{composteira.nome}}</a></p>  
+                            </section>
+
+                            <section class = dados>
+                                <!-- <p>Redução: 5kg</p> -->
+                                <p>Construída: {{composteira.data_construcao}}</p>
+                                <p>Tipo: {{composteira.tipo}}</p>
+                                <a href="{% url 'composteira:editarComposteira' id_composteira=composteira.id_composteira %}" id='graf-ED'>Editar</a>
+                                <a href="{% url 'composteira:excluirComposteira' composteira.id_composteira %}" id ='graf-EX' >Excluir</a>
+                                
+                            </section>
+                                 
+                           
+                    </div>
+                    {% endfor %}
+                    
+                    
+                     
+                
+
+                </div>
+                
+            
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        
+        </div> <!--Swiper-->
+        </div> 
+
+        <div class="nova-comp">
+			<a  class = aaa href = "{% url 'composteira:addComposteira' %}"><button id = "adicionar-comp">Adicionar nova composteira<img id = seta-tutorial src="{% static 'img/seta-tutorial.png' %}"></button></a>
+		</div>
+            
+        <div id = "lado2">
+            <div id="grafico">
+            <H2>Gráfico</H2>
+            <p>Minha Redução de Gases do Efeito Estufa</p>
+            <div id="selects">
+            <select>
+                <option>Este mês</option>
+                <option>Mês passado</option>
+                <option>Esse ano</option>
+            </select>
+            <select>
+                <option>Mais detalhes</option>
+            </select>
+            </div>
+            <div id="dados-graficos">
+                <p>Você deixou de emitir: 40kg no ambiente</p>
+            </div>
+            <canvas class = "line-chart"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    var ctx = document.getElementsByClassName("line-chart");
+                    new Chart(ctx, {
+                        type: "line",
+                        data:{
+                            labels:["data 1", "data 2" , "data 3" , "data 4"],
+                            datasets:[{
+                                label:"O que seria emitido",
+                                data: [21,22,23,24],
+                                borderWidth: 6,
+                                borderColor: "#DD0802",
+                                backgroundColor: "#DD0802",
+                            },{
+                                label:"O que foi emitido",
+                                data: [1,2,3,4],
+                                borderWidth: 6,
+                                borderColor: "#CDF3E5",
+                                backgroundColor: "#CDF3E5",
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                chartAreaBorder:{
+                                    borderColor: "white",
+                                    borderWidth: 2
+                                }
+                            }
+                        }
+                    });
+                </script>
+
+        </div>
+        
+    </div>
+    <script src="{% static 'js/navegacao.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="{% static 'js/tamanho.js' %}"></script>
+    
+
+</body>
+
+
+
+

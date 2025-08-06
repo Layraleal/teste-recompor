@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% load static %}  <!-- Tag obrigatória do Django para carregar arquivos estáticos -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content = "initial-scale=1, maximum-scale=1">
+	<title>Recompor</title>
+	<link rel = "stylesheet" href = "{% static 'css/conta.css' %}">
+	<script src="https://kit.fontawesome.com/538f3725d2.js" crossorigin="anonymous"></script> <!-- Link para utilizar alguns icons -->
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Editar perfil</h1>
+
+        <!-- Informações do Perfil -->
+        <h2>Informações do Perfil</h2>     
+        <div class="profile-info">
+            <p>Escolha sua Foto de Perfil</p>
+    
+            <!-- Formulário de escolha de imagem -->
+            <div class="profile-container">
+                <input type="file" id="profile-picture" accept="image/*">
+                <div id="image-preview">
+                    <p>Nenhuma imagem escolhida ainda</p>
+                </div>
+            </div>
+        
+    
+        <script>
+            // Função para exibir a imagem escolhida
+            const fileInput = document.getElementById('profile-picture');
+            const imagePreview = document.getElementById('image-preview');
+    
+            fileInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+    
+                if (file) {
+                    const reader = new FileReader();
+    
+                    // Quando a leitura do arquivo for concluída, exibe a imagem
+                    reader.onload = function(e) {
+                        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Foto de Perfil" id="profile-img">`;
+                    }
+    
+                    // Lê o arquivo como URL de dados (base64)
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.innerHTML = `<p>Nenhuma imagem escolhida ainda</p>`;
+                }
+            });
+        </script>
+            
+            <p><strong>Nome:</strong> {{ user.username }}</p>
+            <p><strong>Seu email:</strong> {{ user.email }}</p>
+
+    
+        </div>
+
+ 
+
+        <!-- Alterar Senha -->
+        <div class="settings">
+            <h2>Alterar Senha</h2>
+            <label for="current-password">Senha Atual</label>
+            <input type="password" id="current-password" placeholder="Digite a senha atual">
+            <br><br>
+            <label for="new-password">Faz uma funçao para excluir conta
+                
+            </label>
+            <label for="new-password">Nova Senha</label>
+            <input type="password" id="new-password" placeholder="Digite a nova senha">
+            <br><br>
+            <label for="confirm-password">Confirmar Nova Senha</label>
+            <input type="password" id="confirm-password" placeholder="Confirme a nova senha">
+        </div>
+
+        <button class="button">
+            <a href="{% url 'paginas:home' %}">Salvar Alterações</a>
+        </button>
+
+    </div>
+</body>
+</html>
