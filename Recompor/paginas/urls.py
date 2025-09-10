@@ -12,5 +12,10 @@ urlpatterns = [
     path('materiaisTerra/', MateriaisTerraView.as_view(), name = "matTerra"),
     path('tutorialCaixa2', TutorialCaixa2View.as_view(), name = "tutCaixa2"),
     path('tutorialCaixa3', TutorialCaixa3View.as_view(), name = "tutCaixa3"),
+
+      # novas rotas de notificações
+    path("notificacoes/", notifications_view, name="notifications"),
+    path("notificacoes/marcar/<int:notif_id>/", mark_as_read, name="mark_as_read"),
+    path("notificacoes/remover/<int:notif_id>/", delete_notification, name="delete_notification"),
     
 ]

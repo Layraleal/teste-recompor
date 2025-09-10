@@ -40,7 +40,7 @@
 						<i class="fas fa-home"></i> Inicio
 					</a>
 
-					<a class="button-bar full-button" href="#">
+					<a class="button-bar full-button" href="{% url 'usuarios:conta' %}">
 						<i class="fa-solid fa-circle-user"></i> Conta
 					</a>
 
@@ -113,8 +113,11 @@
 					}
 					</script>
 
-					<a class="button-bar full-button"  href= "#">
+					<a class="button-bar full-button" href="{% url 'paginas:notifications' %}">
 						<i class="fa-solid fa-bell"></i> Notificações
+						{% if notif_count > 0 %}
+							<span class="badge bg-danger">{{ notif_count }}</span>
+						{% endif %}
 					</a>
 
 					<a class="button-bar full-button"  href= {% url 'paginas:sobrenos' %}>
