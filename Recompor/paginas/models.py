@@ -9,3 +9,10 @@ class Notification(models.Model):
 
     def __str__(self):
         return f"Notificação de {self.user.username}: {self.message[:20]}"
+
+class WeeklyTip(models.Model):
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.text[:30]

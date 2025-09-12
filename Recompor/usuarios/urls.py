@@ -13,7 +13,9 @@ urlpatterns = [
     path("conta/", views.logarconta, name = "conta"),
     path('editar_perfil/', views.editar_perfil, name='editar_perfil'),
     path('alterar_senha/', views.alterar_senha, name='alterar_senha'),
-    path('excluir_conta/', views.excluir_conta, name='excluir_conta')
+    path('excluir_conta/', views.excluir_conta, name='excluir_conta'),
+    path('trocar-conta/', views.trocar_conta, name='trocar_conta'),
+    
 
 
         

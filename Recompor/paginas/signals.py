@@ -7,13 +7,14 @@ from django.db.models.signals import post_save
 
 @receiver(user_logged_in)
 def create_login_notification(sender, request, user, **kwargs):
-    # Só cria notificação se NÃO for o primeiro login
+    # Só cria notificação de login se NÃO for o primeiro login
     if user.last_login:
         ip = get_client_ip(request)
         Notification.objects.create(
             user=user,
             message=f'<span class="notificacao-login">Novo login detectado no IP: {ip}</span>'
         )
+
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
@@ -24,7 +25,6 @@ def get_client_ip(request):
     if not ip:
         ip = 'IP não identificado'
     return ip
-
 
 @receiver(post_save, sender=User)
 def welcome_notification(sender, instance, created, **kwargs):

@@ -1,23 +1,31 @@
- body {
+/* === Reset / Box sizing === */
+* { box-sizing: border-box; }
+
+/* === Fundo e fonte (mantive seu background) === */
+body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
     background: url("{% static 'img/terra-bg.jpg' %}") no-repeat center center fixed;
     background-size: cover;
+    display: flex;
+    justify-content: center;
 }
+
+/* === Painel central (mantive a estrutura, simplifiquei alguns pontos) === */
 .painel-central {
-    max-width: 920px;
-    margin: 0 auto;
-    position: relative;
-    top: 124px;
-    max-width: 540px;
+    width: 100%;
+    max-width: 540px; /* seu valor original */
+    margin: 124px auto 40px; /* preserva o top que você usa */
     background: #fff;
     border-radius: 24px;
     box-shadow: 0 8px 40px #0003, 0 2px 8px #0001;
     display: flex;
     overflow: hidden;
 }
+
+/* painel lateral - se estiver usando, mantive */
 .painel-lateral {
     background: #b6ce4b;
     color: #fff;
@@ -28,98 +36,131 @@
     justify-content: center;
     padding: 38px 18px;
 }
-.painel-lateral h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-.painel-lateral p {
-    font-size: 1.02rem;
-    margin-bottom: 18px;
-}
-.painel-lateral .icon-leaf {
-    font-size: 2.5rem;
-    margin-bottom: 12px;
-}
+.painel-lateral h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
+.painel-lateral p { font-size: 1.02rem; margin-bottom: 18px; }
+.painel-lateral .icon-leaf { font-size: 2.5rem; margin-bottom: 12px; }
+
+/* Conteúdo direito */
 .painel-conteudo {
-    margin:15px;
+    margin: 15px;
     flex: 1;
     padding: 10px 20px 20px 20px;
     background: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 }
+
+/* Títulos */
 h1, h2 {
     text-align: center;
     color: #7ba51b;
     margin-bottom: 18px;
     font-weight: 700;
 }
+
+/* Labels */
 label {
     display: block;
-    margin-top: 16px;
+    margin-top: 12px;
     margin-bottom: 6px;
     font-weight: 500;
     color: #333;
 }
 
-input[type="text"], input[type="email"], input[type="password"] {
-    padding: 11px 14px;
+/* ========= FORM LAYOUT FIX: garante que inputs e botões ocupem a MESMA largura ======== */
+/* aplica layout consistente para os forms dentro do painel */
+.profile-info form,
+.settings form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;   /* faz com que filhos width:100% ocupem toda largura do pai */
+    gap: 8px;
+}
+
+/* Alguns forms (ex.: senha) têm título h2; mantém a ordem visual */
+.settings { margin-top: 18px; }
+
+/* Inputs (mantidos e unificados) */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+.dados_novos {
     width: 100%;
     padding: 11px 14px;
     border: 1.5px solid #b6ce4b;
     border-radius: 22px;
     font-size: 1rem;
     background: #f9f9f9;
-    transition: border 0.2s;
-    margin-bottom: 8px;
+    transition: border 0.2s, background 0.2s, box-shadow 0.12s;
+    margin: 0; /* gap cuida do espaçamento */
 }
 
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
-    padding: 11px 14px;
+/* foco mais visível */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+.dados_novos:focus {
     border: 1.5px solid #7ba51b;
     outline: none;
     background: #fff;
+    box-shadow: 0 0 0 4px rgba(123,165,27,0.08);
 }
 
-.button, .delete-btn, .botaoFoto {
+/* ======= BOTÕES unificados (agora todos respectam largura do form) ======= */
+/* Mantive .botaoFoto = width:auto porque você pediu pra não mexer na parte da foto */
+.button,
+.delete-btn,
+.switch-btn {
     width: 100%;
-    margin-top: 18px;
+    margin-top: 14px;
     padding: 11px 14px;
     border: none;
     border-radius: 22px;
     font-size: 1rem;
     cursor: pointer;
     font-weight: 600;
-    transition: background 0.2s, box-shadow 0.2s;
+    transition: background 0.18s, transform 0.06s;
     box-shadow: 0 2px 8px #0001;
 }
 
-.button, .botaoFoto {
-    background:  #b6ce4b ;
+/* estilo padrão (salvar / principal) - VERDE */
+.button {
+    background: #b6ce4b;
     color: #fff;
- }
-
-.button:hover, .botaoFoto:hover {
-    background:#7ba51b;
-
 }
+.button:hover { background: #7ba51b; transform: translateY(-1px); }
 
+/* excluir (vermelho) */
 .delete-btn {
     background: #e74c3c;
     color: #fff;
 }
+.delete-btn:hover { background: #c0392b; transform: translateY(-1px); }
 
-.delete-btn:hover {
-    background: #c0392b;
+/* trocar de conta - agora combina com os outros (verde), alinhado e com cantos arredondados */
+.switch-btn {
+    background: #b6ce4b; /* mantém o tom verde para consistência */
+    color: #fff;
 }
+.switch-btn:hover { background: #7ba51b; transform: translateY(-1px); }
 
-.imageContainer {
-    text-align: center;
-    margin-bottom: 10px;
- }
+/* botão de alterar foto: deixei como você já tinha (width:auto, centrado) */
+.imageContainer { text-align: center; margin-bottom: 10px; }
+.botaoFoto {
+    width: auto;                 /* preservado */
+    padding: 8px 22px;
+    margin-top: 12px;
+    font-size: 0.98rem;
+    border-radius: 20px;
+    background: #7ba51b;
+    color: #fff;
+    border: none;
+    box-shadow: none;
+}
+.botaoFoto:hover { background: #b6ce4b; }
 
+/* PREVIEW da foto - mantido exatamente como você pediu */
 #preview {
     border-radius: 50%;
     border: 3px solid #b6ce4b;
@@ -130,36 +171,19 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     background: #f5f5f5;
     margin-bottom: 8px;
     transition: border 0.2s;
- }
-
-.botaoFoto {
-    width: auto;
-    padding: 8px 22px;
-    margin-top: 12px;
-    font-size: 0.98rem;
-    border-radius: 20px;
-    background: #7ba51b;
-    color: #fff;
-    border: none;
-    box-shadow: none;
 }
 
-.botaoFoto:hover {
-    background: #b6ce4b;
-
-}
-
-/* Modal */ 
-#modalFotos {    
+/* modal (mantive seus estilos) */
+#modalFotos {
     display: none;
-    position: fixed;    
-    top: 0; left: 0; width: 100vw; height: 100vh;      
-    background: rgba(0,0,0,0.45);         
-    align-items: center;          
-    justify-content: center;         
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.45);
+    align-items: center;
+    justify-content: center;
     z-index: 1000;
 }
-        
 #modalFotos .modal-content {
     background: #fff;
     padding: 28px 24px;
@@ -170,69 +194,51 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     box-shadow: 0 6px 32px #0003;
     animation: modalFadeIn 0.3s;
 }
-
-@keyframes modalFadeIn {
-    from { transform: scale(0.95); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
+@keyframes modalFadeIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 #modalFotos img {
     border-radius: 50%;
     cursor: pointer;
     border: 2.5px solid transparent;
     transition: border 0.2s, transform 0.2s;
     margin: 0 8px;
-    }
-    
-#modalFotos img:hover {
-    border: 2.5px solid #7ba51b;
-    transform: scale(1.08);
-    }
+}
+#modalFotos img:hover { border: 2.5px solid #7ba51b; transform: scale(1.08); }
+#modalFotos button {
+    background: #e0e0e0;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 22px;
+    margin-top: 18px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+#modalFotos button:hover { background: #b6ce4b; }
 
-        #modalFotos button {
-            background: #e0e0e0;
-            color: #333;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 22px;
-            margin-top: 18px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.2s;
-        }
-        #modalFotos button:hover {
-            background: #b6ce4b;
-        }
-        .password {
-            display: block;
-            margin-top: 10px;
-            text-align: right;
-            color: #7ba51b;
-            text-decoration: none;
-            font-size: 0.97rem;
-            transition: color 0.2s;
-        }
-        .password:hover {
-            color: #b6ce4b;
-            text-decoration: underline;
-        }
-        .messages {
-            margin-bottom: 18px;
-        }
-        .messages .success {
-            background: #e0f7fa;
-            color: #7ba51b;
-            border-left: 5px solid #7ba51b;
-            padding: 10px 16px;
-            border-radius: 5px;
-            margin-bottom: 8px;
-        }
-        .messages .error {
-            background: #ffebee;
-            color: #c0392b;
-            border-left: 5px solid #c0392b;
-            padding: 10px 16px;
-            border-radius: 5px;
-            margin-bottom: 8px;
-        }
+/* link 'esqueci senha' e mensagens - mantidos / ajuste sutil */
+.password {
+    display: block;
+    margin-top: 10px;
+    text-align: right;
+    color: #7ba51b;
+    text-decoration: none;
+    font-size: 0.97rem;
+}
+.password:hover { color: #b6ce4b; text-decoration: underline; }
 
+.messages { margin-bottom: 18px; }
+.messages .success {
+    background: #e0f7fa;
+    color: #7ba51b;
+    border-left: 5px solid #7ba51b;
+    padding: 10px 16px;
+    border-radius: 5px;
+}
+.messages .error {
+    background: #ffebee;
+    color: #c0392b;
+    border-left: 5px solid #c0392b;
+    padding: 10px 16px;
+    border-radius: 5px;
+}

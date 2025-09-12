@@ -69,6 +69,15 @@
                     <button class="delete-btn" type="submit"><i class="fas fa-trash"></i> Excluir Conta</button>
                 </form>
             </div>
+            <!-- Trocar de Conta -->
+            <div class="settings">
+                <form method="post" action="{% url 'usuarios:trocar_conta' %}">
+                    {% csrf_token %}
+                    <button class="switch-btn" type="submit">
+                        <i class="fas fa-exchange-alt"></i> Trocar de Conta
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
     <script>

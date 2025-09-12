@@ -115,7 +115,11 @@ def logar(request):
 def deslogar(request):
     logout(request)
     messages.success(request, "Logout efetuado com sucesso!")
-    return redirect("usuarios:logar")
+    return redirect("paginas:home")
+
+def trocar_conta(request):
+    logout(request)
+    return redirect('usuarios:logar')  # redireciona para a página de login
 
 def esqueceuSenha(request):
     if request.method == 'GET':
