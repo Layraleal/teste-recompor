@@ -17,5 +17,7 @@ urlpatterns = [
     path("notificacoes/", notifications_view, name="notifications"),
     path("notificacoes/marcar/<int:notif_id>/", mark_as_read, name="mark_as_read"),
     path("notificacoes/remover/<int:notif_id>/", delete_notification, name="delete_notification"),
+    path('registro/', notificacoes_registro, name='registro_notificacoes'),
+    path('notificacoes/<int:notif_id>/marcar_nao_lida/', mark_as_unread, name='mark_as_unread'),
     
 ]

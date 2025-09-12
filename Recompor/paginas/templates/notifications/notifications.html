@@ -140,6 +140,30 @@ h2 {
     border: 1px solid #ffdd99;
     color: #a37500;
 }
+.notificacao-boas-vindas {
+    background: #e0ffe0 !important;
+    color: #000000ff !important;
+    font-size: 1.18em;
+    font-weight: normal;
+    border-left: 6px solid #4CAF50;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.08);
+    line-height: 1.6;
+    padding: 16px 12px;
+}
+
+.titulo-boas-vindas {
+    font-size: 1.7em;
+    font-weight: bold;
+    color: #228B22;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.notificacao-login {
+    font-size: 1.3em;
+    color: #1565c0;
+    font-weight: bold;
+}
 </style>
 </head>
 <body id="home">
@@ -156,23 +180,41 @@ h2 {
             {% if notifications %}
                 <ul class="list-group mt-3">
                     {% for notif in notifications %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center
-                                {% if not notif.seen %}fw-bold{% endif %}">
-                            <div>
-                                {{ notif.message }}<br>
-                                <small class="text-muted">{{ notif.created_at|date:"d/m/Y H:i" }}</small>
-                            </div>
-                            <div>
-                                {% if not notif.seen %}
-                                    <a href="{% url 'paginas:mark_as_read' notif.id %}" class="btn btn-sm btn-success" style="font-size: 12px;">
-                                        Marcar como lida
+                        {% if "Bem-vindo(a) ao Recompor" in notif.message %}
+                            <li class="list-group-item notificacao-boas-vindas d-flex flex-column">
+                                <div>
+                                    {{ notif.message|safe }}<br>
+                                    <small class="text-muted">{{ notif.created_at|date:"d/m/Y H:i" }}</small>
+                                </div>
+                                <div class="mt-2">
+                                    {% if not notif.seen %}
+                                        <a href="{% url 'paginas:mark_as_read' notif.id %}" class="btn btn-sm btn-success" style="font-size: 12px;">
+                                            Marcar como lida
+                                        </a>
+                                    {% endif %}
+                                    <a href="{% url 'paginas:delete_notification' notif.id %}" class="btn btn-sm btn-danger" style="font-size: 12px;">
+                                        Remover
                                     </a>
-                                {% endif %}
-                                <a href="{% url 'paginas:delete_notification' notif.id %}" class="btn btn-sm btn-danger" style="font-size: 12px;">
-                                    Remover
-                                </a>
-                            </div>
-                        </li>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center {% if not notif.seen %}fw-bold{% endif %}">
+                                <div>
+                                    {{ notif.message|safe }}<br>
+                                    <small class="text-muted">{{ notif.created_at|date:"d/m/Y H:i" }}</small>
+                                </div>
+                                <div>
+                                    {% if not notif.seen %}
+                                        <a href="{% url 'paginas:mark_as_read' notif.id %}" class="btn btn-sm btn-success" style="font-size: 12px;">
+                                            Marcar como lida
+                                        </a>
+                                    {% endif %}
+                                    <a href="{% url 'paginas:delete_notification' notif.id %}" class="btn btn-sm btn-danger" style="font-size: 12px;">
+                                        Remover
+                                    </a>
+                                </div>
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             {% else %}
@@ -183,7 +225,7 @@ h2 {
             {% endif %}
 
             <div class="mt-4">
-                <a href="{% url 'paginas:notifications' %}" class="btn btn-secondary" style="font-size: 12px;" >Todas as notificações</a>
+                <a href="{% url 'paginas:registro_notificacoes' %}" class="btn btn-secondary" style="font-size: 12px;" >Todas as notificações</a>
                 <a href="#" class="btn btn-outline-danger" style="font-size: 12px;">Remover notificações antigas</a>
             </div>
         </div>

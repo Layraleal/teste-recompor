@@ -1,0 +1,313 @@
+<!-- filepath: c:\Users\55699\OneDrive\Área de Trabalho\teste-recompor\Recompor\paginas\templates\notifications\registro.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Notificações</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background: #f6f8fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 32px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(44,62,80,0.10);
+            padding: 36px 32px 28px 32px;
+        }
+        h2 {
+            font-size: 2em;
+            margin-bottom: 18px;
+            color: #222e3c;
+        }
+        .filtros, .filtro-data {
+            background: #f7f7f7;
+            border-radius: 8px;
+            padding: 18px 18px 10px 18px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-end;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .filtros label {
+            font-size: 1em;
+            color: #444;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .filtros input[type="text"], .filtros select {
+            padding: 7px 12px;
+            border: 1px solid #d1d9e6;
+            border-radius: 6px;
+            font-size: 1em;
+            background: #fff;
+            width: 180px;
+        }
+        .filtros .filtro-lida {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filtros .filtro-lida .ativo {
+            background: #c8f7c5;
+            color: #228B22;
+            border-radius: 6px;
+            padding: 7px 18px;
+            font-weight: 600;
+            border: 1px solid #b2e6b0;
+            margin-right: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .filtros .filtro-lida .close {
+            background: none;
+            border: none;
+            font-size: 1.1em;
+            color: #444;
+            cursor: pointer;
+            margin-left: 4px;
+        }
+        .filtros .btn-filtrar {
+            background: #d1d1d1;
+            color: #222;
+            border: none;
+            border-radius: 18px;
+            padding: 8px 28px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .filtros .btn-filtrar:hover {
+            background: #bdbdbd;
+        }
+        .filtro-data {
+            background: #f7f7f7;
+            border-radius: 8px;
+            padding: 10px 18px;
+            margin-bottom: 18px;
+            gap: 18px;
+        }
+        .filtro-data a {
+            color: #228B22;
+            background: #eafbe7;
+            padding: 5px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 8px;
+            transition: background 0.2s;
+        }
+        .filtro-data a:hover {
+            background: #d2f5c7;
+        }
+        .acoes-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+            margin-top: 10px;
+        }
+        .acoes-bar select {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid #bfc9d1;
+            font-size: 1em;
+        }
+        .acoes-bar button {
+            background: #bdbdbd;
+            color: #222;
+            border: none;
+            border-radius: 6px;
+            padding: 7px 18px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .acoes-bar button:hover {
+            background: #a0a0a0;
+        }
+        .acoes-bar .selecionados {
+            color: #888;
+            font-size: 0.98em;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            min-width: 900px;
+        }
+        thead th {
+            background: #f3f5f7;
+            font-weight: 600;
+            border-bottom: 2px solid #e0e6ed;
+            color: #222e3c;
+            padding: 14px 10px;
+            font-size: 1.05em;
+        }
+        th, td {
+            padding: 14px 10px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        tr:not(:last-child) {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        tr:hover {
+            background: #f5faff;
+        }
+        .check-icon {
+            color: #43a047;
+            font-size: 1.3em;
+        }
+        .btn {
+            padding: 7px 18px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 3px rgba(44,62,80,0.07);
+            outline: none;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .btn-danger {
+            background: #e53935;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #b71c1c;
+        }
+        .btn-dark {
+            background: #444;
+            color: #fff;
+        }
+        .btn-dark:hover {
+            background: #222;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .msg-empty {
+            color: #888;
+            font-size: 1.1em;
+            padding: 20px 0;
+        }
+        .icon-eye {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            background: #e9ecef;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 22px;
+            font-size: 1.1em;
+            color: #444;
+        }
+        @media (max-width: 1000px) {
+            .container { padding: 10px 2vw; }
+            table, thead, tbody, th, td, tr { font-size: 13px; }
+            h2 { font-size: 1.3em; }
+        }
+        @media (max-width: 700px) {
+            .container { padding: 2vw 1vw; }
+            table { min-width: 600px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Notificações</h2>
+    <!-- Filtros -->
+    <form class="filtros" method="get">
+        <div>
+            <label for="texto">Texto:</label>
+            <input type="text" id="texto" name="texto" value="{{ request.GET.texto }}">
+        </div>
+        <div class="filtro-lida">
+            <label>Lida?:</label>
+            {% if request.GET.lida == "sim" %}
+                <span class="ativo"><span class="check-icon">&#128269;</span> Sim
+                    <button type="submit" name="lida" value="" class="close">&times;</button>
+                </span>
+            {% else %}
+                <input type="checkbox" id="lida" name="lida" value="sim" {% if request.GET.lida == "sim" %}checked{% endif %}>
+                <label for="lida" style="margin:0;">Sim</label>
+            {% endif %}
+        </div>
+        <div>
+            <label for="assunto">Assunto:</label>
+            <input type="text" id="assunto" name="assunto" placeholder="Todos" value="{{ request.GET.assunto }}">
+        </div>
+        <button type="submit" class="btn-filtrar">Filtrar</button>
+    </form>
+    <!-- Barra de ações -->
+    <div class="acoes-bar">
+        <label for="acao">Ação:</label>
+        <select id="acao" name="acao">
+            <option>-------</option>
+            <option>Marcar como lida</option>
+            <option>Marcar como não lida</option>
+            <option>Remover</option>
+        </select>
+        <button type="button">Aplicar</button>
+        <span class="selecionados">0 de {{ notifications|length }} selecionados</span>
+    </div>
+    <!-- Tabela -->
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th><input type="checkbox"></th>
+                    <th style="width:30px;">#</th>
+                    <th>Opções</th>
+                    <th>Lida?</th>
+                    <th>Data</th>
+                    <th style="width:40px;"></th>
+                    <th style="width:220px;">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for notif in notifications %}
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>{{ forloop.counter }}</td>
+                    <td><span class="icon-eye">&#128065;</span></td>
+                    <td>{{ notif.message|safe }}</td>
+                    <td class="text-center">
+                        {% if notif.seen %}
+                            <span class="check-icon">&#10004;</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ notif.created_at|date:"d/m/Y H:i" }}</td>
+                    <td>
+                        <a href="{% url 'paginas:mark_as_unread' notif.id %}" class="btn btn-dark">Marcar como não lida</a>
+                        <a href="{% url 'paginas:delete_notification' notif.id %}" class="btn btn-danger">Remover</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center msg-empty">Nenhuma notificação encontrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
