@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # 1. Definindo as opções de fotos
 FOTOS_CHOICES = [
@@ -17,9 +19,6 @@ class Perfil(models.Model):
         return self.user.username
 
 # 3. Sinal: cria automaticamente o Perfil após o User ser criado
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
 @receiver(post_save, sender=User)
 def criar_perfil_usuario(sender, instance, created, **kwargs):
     if created:

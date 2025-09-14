@@ -13,22 +13,34 @@ def entrar(request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         senha = request.POST.get("senha")
-        foto = request.POST.get("foto")  # <- Aqui capturamos a foto escolhida
+        foto = request.POST.get("foto")
 
-        # Verifica se o usuário já existe
+        erros = {}
+        # Verifica se já existe usuário com o mesmo nome
         if User.objects.filter(username=username).exists():
-            messages.error(request, "Usuário já existe.")
-            return redirect("usuarios:logar")
+            erros["username"] = "Este nome de usuário já está em uso."
+
+        # Verifica se já existe usuário com o mesmo email
+        if User.objects.filter(email=email).exists():
+            erros["email"] = "Este email já está cadastrado."
+
+        # Se tiver erro, renderiza a mesma página com os erros
+        if erros:
+            return render(request, "usuarios/cadastro.html", {
+                "erros": erros,
+                "username": username,
+                "email": email,
+            })
 
         # Cria o usuário
         user = User.objects.create_user(username=username, email=email, password=senha)
         user.save()
 
-        # Atualiza o perfil com a foto escolhida
         perfil = Perfil.objects.get(user=user)
-        perfil.foto = foto  # <- Aqui atribuimos a foto escolhida
+        perfil.foto = foto
         perfil.save()
 
+        messages.success(request, "Conta criada com sucesso! Faça login.")
         return redirect("usuarios:logar")
 
     return render(request, "usuarios/cadastro.html")

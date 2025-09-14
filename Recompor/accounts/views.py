@@ -5,8 +5,19 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.models import User 
 from composteira import models
+from django import forms
+from django.contrib.auth.views import PasswordResetView
+from .forms import CustomPasswordResetForm
+ # ou seu model customizado
 
-#ignora tudo q ta aq:)
+
+class CustomPasswordResetView(PasswordResetView):
+    form_class = CustomPasswordResetForm
+    template_name = "password_reset_form.html"
+    email_template_name = "password_reset_email.html"
+    success_url = "/reset-password/done/"
+
+#ignora tudo daqui pra baixo:)
 
 # Create your views here.
 def register(request):
